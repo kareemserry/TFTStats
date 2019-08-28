@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app/index"
+    "start": "node app/index",
+    "dev": "nodemon app/index.js"
   },
   "repository": {
     "type": "git",
