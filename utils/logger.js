@@ -2,7 +2,6 @@ const winston = require('winston');
 const path = require('path');
 
 winston.level = process.env.TFT_APP_LOG_LEVEL == undefined ? 'silly' : process.env.TFT_APP_LOG_LEVEL;
-winston.add(new winston.transports.Console());
 
 const logger = moduleName => {
 
