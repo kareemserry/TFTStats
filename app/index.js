@@ -8,10 +8,9 @@ const messageHandler = require('./message-handler');
 
 const client = new Discord.Client();
 
-const profile = process.env.TFT_STATS_PROFILE
-const token = profile == consts.profiles.production ? process.env.TFT_STATS_DISCORD_TOKEN : process.env.TFT_STATS_DISCORD_TOKEN_DEV;
-
-const ours = consts.ours;
+const profile = consts.envs.profile;
+const token = consts.envs.token;
+const ours = consts.utils.ours;
 
 client.on('ready', () => {
     logger.info(`Discord Bot Ready! Profile: ${profile}`);
@@ -22,12 +21,10 @@ client.on('message', msg => {
         return
 
     if (ours(msg)) {
-        try {
-            messageHandler.handle(msg)
-        } catch (err) {
-            logger.error(err)
-        }
+        messageHandler.handle(msg).catch(err => {
+            logger.error(err.stack)
+        })
     }
-})
+});
 
 client.login(token);

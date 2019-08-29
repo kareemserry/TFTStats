@@ -1,7 +1,9 @@
 const winston = require('winston');
 const path = require('path');
+const consts = require('../utils/consts');
 
-winston.level = process.env.TFT_APP_LOG_LEVEL == undefined ? 'silly' : process.env.TFT_APP_LOG_LEVEL;
+
+winston.level = consts.utils.isDev() ? 'silly' : consts.envs.logLevel;
 
 const logger = moduleName => {
 

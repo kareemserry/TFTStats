@@ -13,9 +13,29 @@ const ours = msg => {
     return msgPrefix == prefix || msgPrefix == prefixShort
 }
 
+const env = process.env;
+var envs = {
+    profile: env.TFT_STATS_PROFILE,
+    helpMessage: env.TFT_STATS_HELP_MESSAGE,
+    helpMap: env.TFT_STATS_HELP_MAP,
+    logLevel: env.TFT_STATS_LOG_LEVEL
+}
+
+const isDev = () => {
+    return !(envs.profile == profiles.production)
+}
+
+envs.token = isDev() ? env.TFT_STATS_DISCORD_TOKEN_DEV : env.TFT_STATS_DISCORD_TOKEN
+
+const utils = {
+    ours: ours,
+    isDev: isDev
+}
+
+utils.ours.prefix = prefix
+utils.ours.prefixShort = prefixShort
 
 module.exports.profiles = profiles;
 module.exports.prefixes = prefixes;
-module.exports.ours = ours;
-module.exports.ours.prefix = prefix;
-module.exports.ours.prefixShort = prefixShort;
+module.exports.utils = utils;
+module.exports.envs = envs;
