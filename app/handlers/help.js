@@ -23,7 +23,7 @@ const helpMap = consts.utils.isDev() ?
     {
         help: ">>> No one can help you here ...",
         other: ">>> <command> is not a valid command.",
-        profile: ">>> `~TFTStats profile`\n\tStats for your stored profile\n\n" +
+        profile: ">>> `~TFTStats profile`\n\tStats for your linked profile\n\tCheck `~TFTStats help link`\n\n" +
             "`~TFTStats profile <region> <username>`\n\tStats for specific user on a specific region.\n" +
             "\t\tRegions: -EUW -NA\n" +
             "\t\tExample: *~TFTStats profile NA scarra*",

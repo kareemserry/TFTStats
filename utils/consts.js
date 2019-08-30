@@ -12,6 +12,8 @@ const prefixes = {
     link: "link"
 }
 
+const regions = ["euw", "na"]
+
 const ours = msg => {
     var msgPrefix = msg.content.split(" ")[0].toLowerCase();
     return msgPrefix == prefix || msgPrefix == prefixShort
@@ -48,5 +50,6 @@ module.exports = {
     prefixes,
     utils,
     envs,
-    emoji
+    emoji,
+    regions
 }
