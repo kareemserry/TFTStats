@@ -1,5 +1,6 @@
 const consts = require('../utils/consts');
 const logger = require('../utils/logger')(module.filename);
+
 const handlers = require('./handlers/index')
 
 
@@ -14,9 +15,12 @@ const handle = async msg => {
         return;
     }
 
+    const args2 = args.slice(2, args.length)
     switch (args[1]) {
         case consts.prefixes.help:
-            await handlers.help(args.slice(2, args.length), msg.channel); break;
+            await handlers.help(args2, msg.channel); break;
+        case consts.prefixes.profile:
+            await handlers.profile(args2, msg.channel, msg.author); break;
         default: await handlers.lost(msg.channel); break;
 
     }

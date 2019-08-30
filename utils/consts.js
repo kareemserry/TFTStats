@@ -5,7 +5,8 @@ const profiles = {
     development: 'dev'
 }
 const prefixes = {
-    help: "help"
+    help: "help",
+    profile: "profile"
 }
 
 const ours = msg => {
