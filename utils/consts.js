@@ -1,12 +1,15 @@
 const prefix = "~tftstats";
 const prefixShort = "~ts";
+
 const profiles = {
-    production: 'prod',
-    development: 'dev'
+    production: "prod",
+    development: "dev"
 }
+
 const prefixes = {
     help: "help",
-    profile: "profile"
+    profile: "profile",
+    link: "link"
 }
 
 const ours = msg => {
@@ -36,7 +39,14 @@ const utils = {
 utils.ours.prefix = prefix
 utils.ours.prefixShort = prefixShort
 
-module.exports.profiles = profiles;
-module.exports.prefixes = prefixes;
-module.exports.utils = utils;
-module.exports.envs = envs;
+const emoji = {
+    thumbsUp: '👍🏼'
+}
+
+module.exports = {
+    profiles,
+    prefixes,
+    utils,
+    envs,
+    emoji
+}

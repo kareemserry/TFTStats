@@ -15,14 +15,20 @@ const handle = async msg => {
         return;
     }
 
-    const args2 = args.slice(2, args.length)
+    const args2 = args.slice(2, args.length) //get rid of ~tftstats <command>
+
+    var args3 = [] //for profile and link profile
+    if (args2[0]) args3.push(args2[0]);
+    if (args2.length > 1) args3.push(args2.slice(1, args.length).join(" "));
+
     switch (args[1]) {
         case consts.prefixes.help:
             await handlers.help(args2, msg.channel); break;
         case consts.prefixes.profile:
-            await handlers.profile(args2, msg.channel, msg.author); break;
+            await handlers.profile(args3, msg.channel, msg.author); break;
+        case consts.prefixes.link:
+            await handlers.link(args3, msg); break;
         default: await handlers.lost(msg.channel); break;
-
     }
 
 }
