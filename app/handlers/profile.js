@@ -9,14 +9,14 @@ const help = require('./help');
 
 // ~ts profile || ~ts profile <region> <username>
 const profile = async (args, channel, user) => {
-    if (!consts.regions.includes(args[0].toLowerCase())) {
-        await channel.send("> Region not supported. try `~TFTStats help profile`");
-        return;
-    }
-
     switch (args.length) {
         case 0: await profileHelper(channel, getUsername(user), getRegion(user)); break;
-        case 2: await profileHelper(channel, args[1], args[0]); break;
+        case 2:
+            if (!consts.regions.includes(args[0].toLowerCase())) {
+                await channel.send("> Region not supported. try `~TFTStats help profile`");
+                return;
+            }
+            await profileHelper(channel, args[1], args[0]); break;
         default: await channel.send(help.getHelpMessage(consts.prefixes.profile)); break;
     }
 }
