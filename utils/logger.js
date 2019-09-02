@@ -1,11 +1,11 @@
-const winston = require('winston');
-const path = require('path');
-const consts = require('../utils/consts');
+const winston = require("winston");
+const path = require("path");
+const consts = require("../utils/consts");
 
 
-winston.level = consts.utils.isDev() ? 'silly' : consts.envs.logLevel;
+winston.level = consts.utils.isDev() ? "silly" : consts.envs.logLevel;
 
-const logger = moduleName => {
+const logger = (moduleName) => {
 
     var basename = path.relative(process.mainModule.filename.replace(`app${path.sep}index.js`, ""), moduleName);
     var padding = "";
@@ -18,14 +18,14 @@ const logger = moduleName => {
         format: winston.format.combine(
             winston.format.label({ label: basename }),
             winston.format.colorize(),
-            winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+            winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
             winston.format.align(),
-            winston.format.printf(info => `${info.timestamp} [${info.label}]${padding} - ${info.level} \t:: ${info.message}`)
+            winston.format.printf((info) => `${info.timestamp} [${info.label}]${padding} - ${info.level} \t:: ${info.message}`)
         ),
         transports: [
             new winston.transports.Console()
         ]
     });
-}
+};
 
-module.exports = logger
+module.exports = logger;
