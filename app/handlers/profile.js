@@ -2,6 +2,8 @@ const logger = require("../../utils/logger")(module.filename);
 const consts = require("../../utils/consts");
 const users = require("../../res/users");
 const api = require("../api");
+const phantom = require("../../utils/phantom");
+
 
 const util = require("util");
 
@@ -31,6 +33,14 @@ const profileHelper = async (channel, username, region) => {
         logger.error(`${err.name} ${err.message}`);
     }
     logger.debug(util.inspect(user));
+    phantom.saveImg({
+        username,
+        rankImg: user.tier.metadata.imageUrl,
+        rank: user.tier.displayValue,
+        win: user.wins.displayValue,
+        loss: user.losses.displayValue,
+        ratio: (user.wins.value / (user.losses.value + user.wins.value) * 100).toFixed(1)
+    });
 };
 
 const reqToObj = (req, args) => {

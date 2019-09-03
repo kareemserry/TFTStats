@@ -37,7 +37,7 @@ const getHelpMessage = (command) => {
     if (Object.values(consts.prefixes).includes(command)) {
         return helpMap[command];
     } else {
-        return helpMap.other.replace("<command>", `\`${command}\` `);
+        return helpMap.other.replace("<command>", `\`${command}\``);
     }
 };
 
