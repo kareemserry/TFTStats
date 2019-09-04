@@ -4,7 +4,10 @@ const path = require("path");
 const logger = require("./logger")(module.filename);
 
 const genImg = async (user) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ]});
     const page = await browser.newPage();
 
     logger.silly("browser up");
