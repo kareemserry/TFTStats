@@ -2,17 +2,21 @@ const puppeteer = require("puppeteer");
 const path = require("path");
 
 const logger = require("./logger")(module.filename);
+const consts = require("./consts");
 
 const genImg = async (user) => {
-    const browser = await puppeteer.launch({args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-      ]});
+    const browser = await puppeteer.launch({
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+        ]
+    });
     const page = await browser.newPage();
 
     logger.silly("browser up");
 
-    await page.goto(path.join(__dirname, "..", "res", "profile.html"));
+    //FIXME:;
+    await page.goto(path.join(consts.utils.isDev() ? __dirname : process.cwd(), "..", "res", "profile.html"));
     await page.setViewport({
         width: 300,
         height: 470,
