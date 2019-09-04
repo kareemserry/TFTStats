@@ -1,23 +1,27 @@
 const puppeteer = require("puppeteer");
-const fs = require("fs");
-const { promisify } = require("util");
-const readFileAsync = promisify(fs.readFile);
-var instance;
+const path = require("path");
 
-const saveImg = async (user) => {
+const logger = require("./logger")(module.filename);
+
+const genImg = async (user) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await page.goto("file:///C:/Users/Serry/Desktop/TFTStats/res/profile.html");
+    logger.silly("browser up");
+
+    await page.goto(path.join(__dirname, "..", "res", "profile.html"));
     await page.setViewport({
         width: 300,
         height: 470,
         deviceScaleFactor: 1,
     });
     await page.setContent(setDetails(await page.content(), user));
-    await page.screenshot({ path: `${user.username}.png` });
-    await browser.close();
 
+    const img = await page.screenshot();
+
+    logger.debug(`img buffer for ${user.username} generated`);
+    browser.close();
+    return img;
 };
 
 const setDetails = (html, user) => {
@@ -30,6 +34,6 @@ const setDetails = (html, user) => {
     return html;
 };
 
-module.exports.saveImg = saveImg;
+module.exports.genImg = genImg;
 
 

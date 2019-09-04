@@ -42,7 +42,8 @@ utils.ours.prefix = prefix;
 utils.ours.prefixShort = prefixShort;
 
 const emoji = {
-    thumbsUp: "👍🏼"
+    thumbsUp: "👍🏼",
+    eye: "👁"
 };
 
 module.exports = {

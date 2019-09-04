@@ -25,7 +25,7 @@ const handle = async (msg) => {
         case consts.prefixes.help:
             await handlers.help(args2, msg.channel); break;
         case consts.prefixes.profile:
-            await handlers.profile(args3, msg.channel, msg.author); break;
+            await handlers.profile(args3, msg, msg.author); break;
         case consts.prefixes.link:
             await handlers.linkProfile(args3, msg); break;
         default: await handlers.lost(msg.channel); break;
