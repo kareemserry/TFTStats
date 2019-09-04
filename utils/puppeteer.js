@@ -17,7 +17,10 @@ const genImg = async (user) => {
 
     //FIXME:;
     logger.info(process.cwd());
-    await page.goto(path.join(consts.utils.isDev() ? __dirname : "file:///" + process.cwd(), "res", "profile.html"));
+    const filePath = consts.utils.isDev() ?
+        path.join(__dirname, "..", "res", "profile.html") :
+        path.join("file:///" + process.cwd(), "res", "profile.html");
+    await page.goto();
     await page.setViewport({
         width: 300,
         height: 470,
