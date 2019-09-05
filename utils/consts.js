@@ -1,21 +1,21 @@
-const prefix = "~tftstats";
-const prefixShort = "~ts";
+const prefix = '~tftstats';
+const prefixShort = '~ts';
 
 const profiles = {
-    production: "prod",
-    development: "dev"
+    production: 'prod',
+    development: 'dev'
 };
 
 const prefixes = {
-    help: "help",
-    profile: "profile",
-    link: "link"
+    help: 'help',
+    profile: 'profile',
+    link: 'link'
 };
 
-const regions = ["euw", "na"];
+const regions = ['euw', 'na'];
 
 const ours = (msg) => {
-    var msgPrefix = msg.content.split(" ")[0].toLowerCase();
+    var msgPrefix = msg.content.split(' ')[0].toLowerCase();
     return msgPrefix === prefix || msgPrefix === prefixShort;
 };
 
@@ -42,8 +42,8 @@ utils.ours.prefix = prefix;
 utils.ours.prefixShort = prefixShort;
 
 const emoji = {
-    thumbsUp: "👍🏼",
-    eye: "👁"
+    thumbsUp: '👍🏼',
+    eye: '👁'
 };
 
 module.exports = {

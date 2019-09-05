@@ -1,8 +1,10 @@
-const fs = require("fs");
-const logger = require("../utils/logger")(module.filename);
-var users = require("./users.json");
+const fs = require('fs');
+const logger = require('../utils/logger')(module.filename);
 
-logger.info("Users loaded");
+//FIXME change to db instance
+var users = require('./users.json');
+
+logger.info('Users loaded');
 logger.debug(`\n${JSON.stringify(users, null, 3)}`);
 
 const getUsername = (user) => {
@@ -17,12 +19,12 @@ const setUser = (id, username, region) => {
     users[id] = { username, region };
     var data = JSON.stringify(users, null, 3);
     logger.silly(data);
-    fs.writeFile("res/users.json", data, (err) => {
+    fs.writeFile('res/users.json', data, (err) => {
         if (err) {
             logger.error(err);
         }
         else {
-            logger.info("Users stored");
+            logger.info('Users stored');
         }
     });
 };

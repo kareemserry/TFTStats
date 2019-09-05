@@ -1,13 +1,13 @@
-const consts = require("../utils/consts");
-const logger = require("../utils/logger")(module.filename);
+const consts = require('../utils/consts');
+const logger = require('../utils/logger')(module.filename);
 
-const handlers = require("./handlers/index");
+const handlers = require('./handlers/index');
 
 
 const handle = async (msg) => {
-    logger.info(`Recieved Message [${msg.id}]: "${msg.author.username}: ${msg.content}"`);
+    logger.info(`Recieved Message [${msg.id}]: '${msg.author.username}: ${msg.content}'`);
 
-    const args = msg.content.split(" ");
+    const args = msg.content.split(' ');
 
     if (args.length < 2) {
         logger.debug(`Message [${msg.id}] without any args`);
@@ -19,7 +19,7 @@ const handle = async (msg) => {
 
     var args3 = []; //for profile and link profile
     if (args2[0]) { args3.push(args2[0]); }
-    if (args2.length > 1) { args3.push(args2.slice(1, args.length).join(" ")); }
+    if (args2.length > 1) { args3.push(args2.slice(1, args.length).join(' ')); }
 
     switch (args[1]) {
         case consts.prefixes.help:

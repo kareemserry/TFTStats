@@ -1,15 +1,15 @@
-const logger = require("../../utils/logger")(module.filename);
+const logger = require('../../utils/logger')(module.filename);
 
-const help = require("./help");
-const profile = require("./profile");
-const linkProfile = require("./link");
+const help = require('./help');
+const profile = require('./profile');
+const linkProfile = require('./link');
 
 const lost = async (channel) => {
-    await channel.send("????? Use: \`~TFTStats help\`");
+    await channel.send('????? Use: \`~TFTStats help\`');
     logger.info(`lost message sent at ${channel.guild.name}:${channel.name}`);
 };
 
 module.exports.help = help;
 module.exports.profile = profile;
 module.exports.lost = lost;
-module.exports.linkProfile = this.linkProfile;
+module.exports.linkProfile = linkProfile;

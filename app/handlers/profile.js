@@ -1,12 +1,12 @@
-const api = require("../api");
+const api = require('../api');
 
-const logger = require("../../utils/logger")(module.filename);
-const consts = require("../../utils/consts");
-const puppeteer = require("../../utils/puppeteer");
+const logger = require('../../utils/logger')(module.filename);
+const consts = require('../../utils/consts');
+const puppeteer = require('../../utils/puppeteer');
 
-const users = require("../../res/users");
+const users = require('../../res/users');
 
-const help = require("./help");
+const help = require('./help');
 
 // ~ts profile || ~ts profile <region> <username>
 const profile = async (args, msg, user) => {
@@ -14,7 +14,7 @@ const profile = async (args, msg, user) => {
         case 0: await profileHelper(msg, getUsername(user), getRegion(user)); break;
         case 2:
             if (!consts.regions.includes(args[0].toLowerCase())) {
-                await msg.channel.send("> Region not supported. try `~TFTStats help profile`");
+                await msg.channel.send('> Region not supported. try `~TFTStats help profile`');
                 return;
             }
             await profileHelper(msg, args[1], args[0]); break;
@@ -30,10 +30,10 @@ const profileHelper = async (msg, username, region) => {
         req = await api.getProfile(username, region);
     } catch (err) {
         logger.error(`${err.name} ${err.message}`);
-        await msg.channel.send(`Couldnt find user '${username}' in region '${region}'`);
+        await msg.channel.send(`Couldnt find user \'${username}\' in region \'${region}\'`);
     }
 
-    const user = reqToObj(req.data.data.segments[0].stats, ["wins", "losses", "rank", "tier"]);
+    const user = reqToObj(req.data.data.segments[0].stats, ['wins', 'losses', 'rank', 'tier']);
     await sendImage(username, user, msg.channel);
 };
 
