@@ -13,4 +13,5 @@ connect()
     })
     .catch((err) => {
         logger.error(err.name);
+        logger.debug(err.message);
     });
