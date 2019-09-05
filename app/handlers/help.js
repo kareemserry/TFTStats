@@ -7,7 +7,7 @@ const helpMessage = consts.utils.isDev() ? '>>>' +
     ' `~TFTStats profile`\n\tReturns stats for linked TFT profile' + '\n\n' +
     ' `~TFTStats profile <region> <uesrname>`\n\tReturn stats for specific user' + '\n\n' +
     ' `~TFTStats link <region> <username>`\n\tLinks this account to your discord profile'
-    : consts.envs.TFT_STATS_HELP_MESSAGE;
+    : consts.envs.helpMessage;
 
 
 // ~ts help || ~ts help <command>
