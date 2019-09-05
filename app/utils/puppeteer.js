@@ -15,8 +15,6 @@ const genImg = async (user) => {
 
     logger.silly('browser up');
 
-    //FIXME:;
-    logger.info(process.cwd());
     const filePath = consts.utils.isDev() ?
         path.join(__dirname, '..', '..', 'res', 'profile.html') :
         path.join('file:///' + process.cwd(), 'res', 'profile.html');
