@@ -1,5 +1,5 @@
-const consts = require('../utils/consts');
-const logger = require('../utils/logger')(module.filename);
+const consts = require('./utils/consts');
+const logger = require('./utils/logger')(module.filename);
 
 const handlers = require('./handlers/index');
 

@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 
-const logger = require('../utils/logger')(module.filename);
-const consts = require('../utils/consts');
+const logger = require('./utils/logger')(module.filename);
+const mongo = require('./utils/mongo');
+const consts = require('./utils/consts');
 
 
 const messageHandler = require('./message-handler');

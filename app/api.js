@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const logger = require('../utils/logger')(module.filename);
-const consts = require('../utils/consts');
+const logger = require('./utils/logger')(module.filename);
+const consts = require('./utils/consts');
 
 const profileUrl = 'https://api.tracker.gg/api/v2/tft/standard';
 const trackerGG = axios.create({ baseURL: profileUrl });

@@ -1,5 +1,5 @@
-const logger = require('../../utils/logger')(module.filename);
-const consts = require('../../utils/consts');
+const logger = require('../utils/logger')(module.filename);
+const consts = require('../utils/consts');
 
 const helpMessage = consts.utils.isDev() ? '>>>' +
     ' `~TFTStats help`\n\tReturns list of available TFT Stats commands' + '\n\n' +

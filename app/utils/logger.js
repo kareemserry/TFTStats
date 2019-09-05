@@ -1,6 +1,6 @@
 const winston = require('winston');
 const path = require('path');
-const consts = require('../utils/consts');
+const consts = require('./consts');
 
 
 winston.level = consts.utils.isDev() ? 'silly' : consts.envs.logLevel;

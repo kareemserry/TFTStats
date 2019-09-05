@@ -1,4 +1,4 @@
-const logger = require('../../utils/logger')(module.filename);
+const logger = require('../utils/logger')(module.filename);
 
 const help = require('./help');
 const profile = require('./profile');

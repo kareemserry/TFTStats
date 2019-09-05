@@ -1,6 +1,6 @@
-const logger = require('../../utils/logger')(module.filename);
-const consts = require('../../utils/consts');
-const users = require('../../res/users');
+const logger = require('../utils/logger')(module.filename);
+const consts = require('../utils/consts');
+const Users = require('../models/Users');
 
 const help = require('./help');
 
@@ -18,7 +18,21 @@ const linkProfile = async (args, msg) => {
 };
 
 const setUser = async (username, region, msg) => {
-    users.setUser(msg.author.id, username, region);
+    const user = await Users.findOne({ discordID: msg.author.id });
+
+    if (user) {
+        await user.update({
+            username,
+            region
+        });
+    } else {
+        await Users.create({
+            discordID: msg.author.id,
+            username,
+            region
+        });
+    }
+
     logger.info(`User [${msg.author.id}] updated linked account with (${region}, ${username})`);
     await msg.react(consts.emoji.thumbsUp);
 };
