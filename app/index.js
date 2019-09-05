@@ -1,26 +1,32 @@
 const Discord = require('discord.js');
 
-const logger = require('../utils/logger.js')(module.filename);
-const consts = require('../utils/consts');
+const logger = require('./utils/logger')(module.filename);
+const mongo = require('./utils/mongo');
+const consts = require('./utils/consts');
 
-const messageHandler = require('./message-handler.js');
+
+const messageHandler = require('./message-handler');
 
 const client = new Discord.Client();
 
-const profile = process.env.TFT_STATS_PROFILE
-const token = profile == consts.profiles.production ? process.env.TFT_STATS_DISCORD_TOKEN : process.env.TFT_STATS_DISCORD_TOKEN_DEV;
+const profile = consts.envs.profile;
+const token = consts.envs.token;
+const ours = consts.utils.ours;
 
 client.on('ready', () => {
     logger.info(`Discord Bot Ready! Profile: ${profile}`);
 });
 
-client.on('message', msg => {
-    if (msg.author.id == client.user.id)
-        return
-
-    if (msg.content.toLowerCase().startsWith("~tftstats ")) {
-        messageHandler.handle(msg)
+client.on('message', (msg) => {
+    if (msg.author.id === client.user.id) {
+        return;
     }
-})
+
+    if (ours(msg)) {
+        messageHandler.handle(msg).catch((err) => {
+            logger.error(err.stack);
+        });
+    }
+});
 
 client.login(token);
