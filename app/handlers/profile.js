@@ -68,14 +68,6 @@ const reqToObj = (req, args) => {
     return obj;
 };
 
-const getUsername = async (user) => {
-    return await Users.findOne({ discordID: user.id }).username;
-};
-
-const getRegion = async (user) => {
-    return await Users.findOne({ discordID: user.id }).region;
-};
-
 module.exports = profile;
 
 
