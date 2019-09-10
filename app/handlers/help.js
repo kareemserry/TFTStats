@@ -25,10 +25,10 @@ const helpMap = consts.utils.isDev() ?
         other: '>>> <command> is not a valid command.',
         profile: '>>> `~TFTStats profile`\n\tStats for your linked profile\n\tCheck `~TFTStats help link`\n\n' +
             '`~TFTStats profile <region> <username>`\n\tStats for specific user on a specific region.\n' +
-            '\t\tRegions: -EUW -NA\n' +
+            `\t\tRegions: ${consts.regions.toString()}\n` +
             '\t\tExample: *~TFTStats profile NA scarra*',
         link: '>>> `~TFTStats link <region> <username>`\n\tLinks your TFT account to your discord profile,\n\tallowing you to use `~TFTStats profile`\n' +
-            '\t\tRegions: -EUW -NA\n' +
+            `\t\tRegions: ${consts.regions.toString()}\n` +
             '\t\tExample: *~TFTStats link NA scarra*'
     }
     : JSON.parse(consts.envs.helpMap);
