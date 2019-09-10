@@ -12,7 +12,7 @@ const prefixes = {
     link: 'link'
 };
 
-const regions = ['euw', 'na'];
+const regions = ['euw', 'na', 'eune', 'oce', 'tr', 'br', 'lan', 'las', 'ru', 'jp'];
 
 const ours = (msg) => {
     var msgPrefix = msg.content.split(' ')[0].toLowerCase();
