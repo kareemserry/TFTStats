@@ -15,6 +15,7 @@ const ours = consts.utils.ours;
 
 client.on('ready', () => {
     logger.info(`Discord Bot Ready! Profile: ${profile}`);
+    client.user.setActivity('`~ts help`');
 });
 
 client.on('message', (msg) => {

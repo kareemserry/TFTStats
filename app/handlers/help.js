@@ -1,5 +1,6 @@
 const logger = require('../utils/logger')(module.filename);
 const consts = require('../utils/consts');
+const util = require('util');
 
 const helpMessage = consts.utils.isDev() ? '>>>' +
     ' `~TFTStats help`\n\tReturns list of available TFT Stats commands' + '\n\n' +
@@ -13,7 +14,7 @@ const helpMessage = consts.utils.isDev() ? '>>>' +
 // ~ts help || ~ts help <command>
 const help = async (args, channel) => {
     switch (args.length) {
-        case 0: await channel.send(helpMessage); logger.info(`General help message sent at ${channel.guild.name}:${channel.name}`); break;
+        case 0: await channel.send(helpMessage); logger.info(`General help message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`); break;
         case 1: await channel.send(getHelpMessage(args[0])); logger.info(`<${args[0]}> help message sent at ${channel.guild.name}:${channel.name}`); break;
         default: await channel.send(helpMessage); break;
     }
