@@ -15,7 +15,7 @@ const helpMessage = consts.utils.isDev() ? '>>>' +
 const help = async (args, channel) => {
     switch (args.length) {
         case 0: await channel.send(helpMessage); logger.info(`General help message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`); break;
-        case 1: await channel.send(getHelpMessage(args[0])); logger.info(`<${args[0]}> help message sent at ${channel.guild.name}:${channel.name}`); break;
+        case 1: await channel.send(getHelpMessage(args[0])); logger.info(`<${args[0]}> help message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`); break;
         default: await channel.send(helpMessage); break;
     }
 };
