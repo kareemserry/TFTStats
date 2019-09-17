@@ -6,7 +6,7 @@ const linkProfile = require('./link');
 
 const lost = async (channel) => {
     await channel.send('????? Use: \`~TFTStats help\`');
-    logger.info(`lost message sent at ${channel.guild.name}:${channel.name}`);
+    logger.info(`lost message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`);
 };
 
 module.exports.help = help;
