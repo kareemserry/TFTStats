@@ -16,8 +16,8 @@ const genImg = async (user) => {
     logger.silly('browser up');
 
     const filePath = consts.utils.isDev() ?
-        path.join(__dirname, '..', '..', 'res', 'profile.html') :
-        path.join('file:///' + process.cwd(), 'res', 'profile.html');
+        path.join(__dirname, '..', '..', 'static', 'profile.html') :
+        path.join('file:///' + process.cwd(), 'static', 'profile.html');
     await page.goto(filePath);
     await page.setViewport({
         width: 300,
