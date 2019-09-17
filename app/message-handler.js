@@ -28,6 +28,8 @@ const handle = async (msg) => {
             await handlers.profile(args3, msg, msg.author); break;
         case consts.prefixes.link:
             await handlers.linkProfile(args3, msg); break;
+        case consts.prefixes.stats:
+            await handlers.stats(msg); break;
         default: await handlers.lost(msg.channel); break;
     }
 

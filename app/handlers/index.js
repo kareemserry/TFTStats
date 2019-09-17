@@ -1,4 +1,5 @@
 const logger = require('../utils/logger')(module.filename);
+const util = require('util');
 
 const help = require('./help');
 const profile = require('./profile');
@@ -9,7 +10,20 @@ const lost = async (channel) => {
     logger.info(`lost message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`);
 };
 
-module.exports.help = help;
-module.exports.profile = profile;
-module.exports.lost = lost;
-module.exports.linkProfile = linkProfile;
+const stats = async (msg) => {
+    if (msg.author.id === '267420761516539904') {
+        guilds = "";
+        msg.client.guilds.forEach((guild) => guilds = guilds.concat("\t" + guild.name + "\n"));
+        await msg.reply(`\n>>> Servers:\n${guilds}\n${msg.client.guilds.size}`);
+    } else {
+        logger.info("Unauthorized use of owner commands!");
+    }
+}
+
+module.exports = {
+    help,
+    profile,
+    lost,
+    linkProfile,
+    stats
+};
