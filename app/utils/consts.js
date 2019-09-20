@@ -10,7 +10,8 @@ const prefixes = {
     help: 'help',
     profile: 'profile',
     link: 'link',
-    stats: 'stats'
+    stats: 'stats',
+    comps: 'comps'
 };
 
 const regions = ['euw', 'na', 'eune', 'oce', 'tr', 'br', 'lan', 'las', 'ru', 'jp'];
