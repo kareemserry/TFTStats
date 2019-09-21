@@ -35,7 +35,7 @@ const helpMap = consts.utils.isDev() ?
             '\t\tExample: *~TFTStats link NA scarra*',
         comps: '>>> `~TFTStats comps`\n\tThe top TFT team compositions as per blitz.gg\n\n' +
             '`~TFTStats comps <number>`\n\tA more detailed preview of this team.\n' +
-            '\t\tExample: *~TFTStats comps 1* '
+            '\t\tExample: *~TFTStats comps 1*'
     }
     : JSON.parse(consts.envs.helpMap);
 

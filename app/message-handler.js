@@ -31,7 +31,7 @@ const handle = async (msg) => {
         case consts.prefixes.stats:
             await handlers.stats(msg); break;
         case consts.prefixes.comps:
-            await handlers.comps(msg.channel); break;
+            await handlers.comps(args2, msg.channel); break;
         default: await handlers.lost(msg.channel); break;
     }
 

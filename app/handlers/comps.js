@@ -4,17 +4,14 @@ const logger = require('../utils/logger')(module.filename);
 const consts = require('../utils/consts');
 const puppeteer = require('../utils/puppeteer');
 
-const Users = require('../models/Users');
-
 const help = require('./help');
 
 // ~ts comps || ~ts comps <number>
-const comps = async (channel) => {
+const comps = async (args, channel) => {
     switch (args.length) {
-        case 0: {
+        case 0:
             await sendAllComps(channel);
             break;
-        }
         case 1:
             await sendThisComp(channel, args[0]);
             break;
@@ -22,8 +19,11 @@ const comps = async (channel) => {
     }
 };
 
-const compsH = (channel) => {
-    channel.send("wip");
+const sendAllComps = async (channel) => {
+    await channel.send("`" + JSON.stringify((await api.getComps()).comps.filter((comp) => { return comp.tier == 1; }), null, 4) + "`");
+};
+const sendThisComp = async (channel, index) => {
+    await channel.send("`" + JSON.stringify((await api.getComps()).comps[index - 1], null, 4) + "`");
 };
 
-module.exports = compsH;
+module.exports = comps;
