@@ -5,7 +5,7 @@ const handlers = require('./handlers/index');
 
 
 const handle = async (msg) => {
-    logger.info(`Recieved Message [${msg.id}]: '${msg.author.username}: ${msg.content}'`);
+    logger.info(`Recieved Message [${msg.id}]: '${msg.author.tag}: ${msg.content}'`);
 
     const args = msg.content.split(' ');
 
