@@ -8,7 +8,7 @@ const trackerGG = axios.create({ baseURL: profileUrl });
 
 const getProfile = async (username, region) => {
     logger.info(`API Get profile ${username} ${region}`);
-    return await trackerGG.get(`/profile/riot/${username}`, {
+    return await trackerGG.get(`/profile/riot/${encodeURI(username)}`, {
         params: {
             region: region.toUpperCase()
         }
