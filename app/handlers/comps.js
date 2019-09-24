@@ -4,6 +4,8 @@ const logger = require('../utils/logger')(module.filename);
 const consts = require('../utils/consts');
 const puppeteer = require('../utils/puppeteer');
 
+const drawer = require('../drawers/comps');
+
 const help = require('./help');
 
 // ~ts comps || ~ts comps <number>
@@ -20,7 +22,13 @@ const comps = async (args, channel) => {
 };
 
 const sendAllComps = async (channel) => {
-    await channel.send("`" + JSON.stringify((await api.getComps()).comps.filter((comp) => { return comp.tier == 1; }), null, 4) + "`");
+    const image = await drawer.drawComps(
+        (await api.getComps()).comps.filter((comp) => {
+            return comp.tier == 1;
+        }));
+    await channel.send({
+        files: [image]
+    });
 };
 const sendThisComp = async (channel, index) => {
     await channel.send("`" + JSON.stringify((await api.getComps()).comps[index - 1], null, 4) + "`");
