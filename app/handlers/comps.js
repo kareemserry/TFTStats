@@ -14,9 +14,6 @@ const comps = async (args, channel) => {
         case 0:
             await sendAllComps(channel);
             break;
-        case 1:
-            await sendThisComp(channel, args[0]);
-            break;
         default: await msg.channel.send(help.getHelpMessage(consts.prefixes.comps)); break;
     }
 };
@@ -29,9 +26,6 @@ const sendAllComps = async (channel) => {
     await channel.send({
         files: [image]
     });
-};
-const sendThisComp = async (channel, index) => {
-    await channel.send("`" + JSON.stringify((await api.getComps()).comps[index - 1], null, 4) + "`");
 };
 
 module.exports = comps;

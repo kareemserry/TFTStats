@@ -1,41 +1,80 @@
 const logger = require('../utils/logger')(module.filename);
-const { createCanvas, loadImage } = require('canvas');
-const rowSize = 100;
-const width = 1000;
+const { createCanvas, loadImage, registerFont } = require('canvas');
+const api = require('../api');
+const rowSize = 250;
+const width = 1500;
+
+registerFont('static/fonts/Open_Sans/OpenSans-Regular.ttf', { family: 'Open Sans' });
 
 const drawComps = async (comps) => {
+    let y = 200;
 
-    const canvas = createCanvas(width, 200 + comps.length * rowSize);
+    const champions = await api.getChampions();
+
+    const height = 200 + comps.length * rowSize;
+    const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
-    const background = await loadImage('https://images.unsplash.com/photo-1454117096348-e4abbeba002c?ixlib=rb-1.2.1&w=1000&q=80');
 
-    ctx.drawImage(background, 0, 0);
+    ctx.fillStyle = '#757F9A';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = 'black';
 
+    ctx.font = '90px "Open Sans"';
     const currentPatch = "x.xx";
-    ctx.fillText(`TFT Best Comps Patch ${currentPatch}`, 450, 50);
-    y = 200;
-    comps.forEach(comp => {
-        drawComp(comp, y, ctx);
-        y += rowSize - 10;
-    });
+    const title = `TFT Best Comps Patch ${currentPatch}`;
+    const text = ctx.measureText(title);
+
+    ctx.fillText(title, (width - text.width) / 2, 80);
+    ctx.font = '60px "Open Sans"';
+
+    for (i = 0; i < comps.length; i++) {
+        await drawComp(comps[i], y, ctx, champions);
+        y += rowSize;
+    }
 
     return canvas.toBuffer();
 };
 
-const drawComp = (comp, y, ctx) => {
+const drawComp = async (comp, y, ctx, champRes) => {
+
     const champions = Object.keys(comp.champions);
     const space = width / champions.length;
 
-    ctx.fillText(`${comp.name} - ${comp.subtitle}`, 10, y);
-    champions.forEach((key, index) => {
-        drawChamp(key, index * space, y + 20, ctx, comp.champions[key] === 2);
-    });
+    ctx.fillText(`${comp.name} - ${comp.subtitle}`, 25, y + 30);
+    var i;
+    for (i = 0; i < champions.length; i++) {
+        await drawChamp(
+            champions[i],
+            (i * space) + ((space - 120) / 2),
+            y + (rowSize - 120) / 2,
+            ctx,
+            comp.champions[champions[i]] === 2
+        );
+    }
+
+    y += rowSize;
 };
 
-const drawChamp = (champ, x, y, ctx, isCarry) => {
-    if (isCarry) ctx.fillStyle = 'blue';
-    ctx.fillText(champ, x, y);
-    ctx.fillStyle = 'black';
+const drawChamp = async (champ, x, y, ctx, isCarry) => {
+    const imgSrc = api.getChampionImgLink(champ);
+    const champImg = await loadImage(imgSrc);
+
+    drawImage(ctx, x, y, champImg);
+
+};
+
+const drawImage = (ctx, x, y, champImg) => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x + 60, y + 60, 60, 0, 2 * Math.PI, true);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(champImg, x, y);
+    ctx.beginPath();
+    ctx.arc(x + 60, y + 60, 60, 0, 2 * Math.PI, true);
+    ctx.clip();
+    ctx.closePath();
+    ctx.restore();
 };
 
 

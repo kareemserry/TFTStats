@@ -20,26 +20,31 @@ const getProfile = async (username, region) => {
             region: region.toUpperCase()
         }
     });
-    logger.debug(util.inspect(res.data));
+    logger.silly(util.inspect(res.data));
     return res.data;
 };
 
 const getChampions = async () => {
     logger.info('blitzGG Get Champions');
     const res = await blitzGG.get('/data/champions.json');
-    logger.debug(util.inspect(res.data));
+    logger.silly(util.inspect(res.data));
     return res.data;
 };
 
 const getComps = async () => {
     logger.info('blitzGG Get Comps');
     const res = await blitzGG.get('/data/comps.json');
-    logger.debug(util.inspect(res.data));
+    logger.silly(util.inspect(res.data));
     return res.data;
 };
+
+const getChampionImgLink = (name) => {
+    return `${Urls.ddragon}/img/champion/${name}.png`;
+}
 
 module.exports = {
     getProfile,
     getChampions,
-    getComps
+    getComps,
+    getChampionImgLink
 };
