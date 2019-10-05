@@ -31,6 +31,17 @@ const getChampions = async () => {
     return res.data;
 };
 
+const getItemIconLink = (item) => {
+    return `${Urls.blitzGG}/items/${item}.png`;
+};
+
+const getCurrentPatch = async () => {
+    logger.info('trackerGG Get Current Patch');
+    const res = await blitzGG.get('/data/patches/index.json');
+    if (!res.data[0]) throw Error("Couldn't get current patch");
+    return res.data[0].title.replace('Patch ', '');
+};
+
 const getComps = async () => {
     logger.info('blitzGG Get Comps');
     const res = await blitzGG.get('/data/comps.json');
@@ -40,11 +51,13 @@ const getComps = async () => {
 
 const getChampionImgLink = (name) => {
     return `${Urls.ddragon}/img/champion/${name}.png`;
-}
+};
 
 module.exports = {
     getProfile,
     getChampions,
     getComps,
-    getChampionImgLink
+    getChampionImgLink,
+    getItemIconLink,
+    getCurrentPatch
 };

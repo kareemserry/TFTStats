@@ -3,7 +3,7 @@ const path = require('path');
 const consts = require('./consts');
 
 
-winston.level = consts.utils.isDev() ? 'debug' : consts.envs.logLevel;
+winston.level = consts.utils.isDev() ? 'silly' : consts.envs.logLevel;
 
 const logger = (moduleName) => {
 
