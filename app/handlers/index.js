@@ -6,6 +6,8 @@ const profile = require('./profile');
 const linkProfile = require('./link');
 const comps = require('./comps');
 
+//require('../models/Comps');
+
 const lost = async (channel) => {
     await channel.send('????? Use: \`~TFTStats help\`');
     logger.info(`lost message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`);
