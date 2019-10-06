@@ -9,22 +9,22 @@ const drawer = require('../drawers/comps');
 const help = require('./help');
 
 // ~ts comps || ~ts comps <number>
-const comps = async (args, channel) => {
+const comps = async (args, msg) => {
     switch (args.length) {
         case 0:
-            await sendAllComps(channel);
+            await sendAllComps(msg);
             break;
         default: await msg.channel.send(help.getHelpMessage(consts.prefixes.comps)); break;
     }
 };
 
-const sendAllComps = async (channel) => {
+const sendAllComps = async (msg) => {
     msg.react(consts.emoji.eye);
     const image = await drawer.drawComps(
         (await api.getComps()).comps.filter((comp) => {
             return comp.tier == 1;
         }));
-    await channel.send({
+    await msg.channel.send({
         files: [image]
     });
 };
