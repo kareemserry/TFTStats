@@ -6,6 +6,8 @@ const profile = require('./profile');
 const linkProfile = require('./link');
 const comps = require('./comps');
 
+const compsManager = require('./comps-manage');
+
 //require('../models/Comps');
 
 const lost = async (channel) => {
@@ -29,5 +31,6 @@ module.exports = {
     lost,
     linkProfile,
     stats,
-    comps
+    comps,
+    compsManager
 };

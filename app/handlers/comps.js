@@ -19,6 +19,7 @@ const comps = async (args, channel) => {
 };
 
 const sendAllComps = async (channel) => {
+    msg.react(consts.emoji.eye);
     const image = await drawer.drawComps(
         (await api.getComps()).comps.filter((comp) => {
             return comp.tier == 1;

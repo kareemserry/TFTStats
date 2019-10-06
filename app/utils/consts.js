@@ -11,7 +11,9 @@ const prefixes = {
     profile: 'profile',
     link: 'link',
     stats: 'stats',
-    comps: 'comps'
+    comps: 'comps',
+    compsAdd: 'comps-add',
+    compsReset: 'comps-reset'
 };
 
 const regions = ['euw', 'na', 'eune', 'oce', 'tr', 'br', 'lan', 'las', 'ru', 'jp'];
