@@ -29,7 +29,8 @@ var envs = {
     helpMessage: env.TFT_STATS_HELP_MESSAGE,
     helpMap: env.TFT_STATS_HELP_MAP,
     logLevel: env.TFT_STATS_LOG_LEVEL,
-    dbString: env.TFT_STATS_DB_CON
+    dbString: env.TFT_STATS_DB_CON,
+    compsPatch: env.TFT_STATS_COMPS_PATCH
 };
 
 const isDev = () => {

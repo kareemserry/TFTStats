@@ -8,7 +8,9 @@ registerFont('static/fonts/Open_Sans/OpenSans-Regular.ttf', { family: 'Open Sans
 registerFont('static/fonts/Open_Sans/OpenSans-ExtraBold.ttf', { family: 'Open Sans Bold' });
 
 
+
 const drawComps = async (comps) => {
+
     let y = 160;
 
     const champions = await api.getChampions();
