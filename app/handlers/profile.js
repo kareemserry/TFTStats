@@ -33,16 +33,16 @@ const profile = async (args, msg, user) => {
 const profileHelper = async (msg, username, region) => {
     logger.debug(`profileHelper ${username} ${region}`);
     msg.react(consts.emoji.eye);
-    let req;
+    let res;
     try {
-        req = await api.getProfile(username, region);
+        res = await api.getProfile(username, region);
     } catch (err) {
         logger.warn(`${err.name} ${err.message}`);
         await msg.channel.send(`Couldnt find user \'${username}\' in region \'${region}\'`);
         return;
     }
 
-    const user = reqToObj(req.data.data.segments[0].stats, ['wins', 'losses', 'rank', 'tier']);
+    const user = reqToObj(res.data.segments[0].stats, ['wins', 'losses', 'rank', 'tier']);
     await sendImage(username, user, msg.channel);
 };
 

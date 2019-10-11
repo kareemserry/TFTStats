@@ -1,6 +1,6 @@
 {
   "name": "tftstats",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Discord bot for TFT ",
   "main": "index.js",
   "engines": {
@@ -29,7 +29,9 @@
   },
   "homepage": "https://github.com/kareemserry/TFTStats#readme",
   "dependencies": {
+    "async": "^3.1.0",
     "axios": "^0.19.0",
+    "canvas": "^2.6.0",
     "discord.js": "^11.5.1",
     "mongoose": "^5.6.12",
     "puppeteer": "^1.19.0",

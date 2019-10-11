@@ -4,6 +4,11 @@ const util = require('util');
 const help = require('./help');
 const profile = require('./profile');
 const linkProfile = require('./link');
+const comps = require('./comps');
+
+const compsManager = require('./comps-manage');
+
+//require('../models/Comps');
 
 const lost = async (channel) => {
     await channel.send('????? Use: \`~TFTStats help\`');
@@ -18,12 +23,14 @@ const stats = async (msg) => {
     } else {
         logger.info("Unauthorized use of owner commands!");
     }
-}
+};
 
 module.exports = {
     help,
     profile,
     lost,
     linkProfile,
-    stats
+    stats,
+    comps,
+    compsManager
 };
