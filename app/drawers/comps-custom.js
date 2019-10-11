@@ -36,7 +36,7 @@ const drawComps = async (comps) => {
     ctx.fillStyle = 'white';
 
     ctx.font = '90px "Open Sans Bold"';
-    const currentPatch = consts.env == 'prod' ? consts.envs.compsPatch : '9.19';
+    const currentPatch = consts.utils.isDev ? '9.19' : consts.envs.compsPatch;
     const title = `TFT Best Comps Patch ${currentPatch}`;
     const text = ctx.measureText(title);
 
