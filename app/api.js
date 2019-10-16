@@ -15,7 +15,7 @@ const blitzGG = axios.create({ baseURL: Urls.blitzGG });
 
 const getProfile = async (username, region) => {
     logger.info(`trackerGG Get Profile : ${username} ${region}`);
-    const res = await trackerGG.get(`/profile/riot/${username}`, {
+    const res = await trackerGG.get(`/profile/riot/${encodeURI(username)}`, {
         params: {
             region: region.toUpperCase()
         }
