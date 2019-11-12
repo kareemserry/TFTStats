@@ -12,6 +12,10 @@ const help = require('./help');
 
 // ~ts comps || ~ts comps <number>
 const comps = async (args, msg) => {
+    if (true /* wip */) {
+        await msg.channel.send("comps command is down until we get it updated for set 2, thank you for your patience");
+        return;
+    }
     switch (args.length) {
         case 0:
             await sendAllComps(msg);
