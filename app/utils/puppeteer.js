@@ -3,6 +3,43 @@ const path = require('path');
 
 const logger = require('./logger')(module.filename);
 const consts = require('./consts');
+const { stat } = require('fs');
+const { getHeapCodeStatistics } = require('v8');
+
+const launchPuppeteer = async () => {
+    return await puppeteer.launch({
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+        ]
+    });
+}
+
+const getTrackerGGProfile = async (username, region) => {
+    const browser = await launchPuppeteer();
+    const page = await browser.newPage();
+    const link = `https://tracker.gg/tft/profile/riot/${region.toUpperCase()}/${encodeURI(username)}/overview`;
+    logger.debug(link);
+
+    await page.goto(link);
+    //wait for page to load
+    await page.waitForSelector(".details");
+    await page.waitForSelector(".ph-details__identifier");
+    await page.waitForSelector(".ph-avatar");
+    await page.waitForSelector(".segment-stats");
+
+    //reorder page
+    await page.evaluate(() => {
+        document.querySelector(".details").replaceChild(document.querySelector(".ph-details__identifier"), document.querySelector(".details > h2:nth-child(2)"));
+        document.querySelector(".details").replaceChild(document.querySelector(".ph-avatar"), document.querySelector(".details > svg:nth-child(1)"));
+    })
+
+    const stats = await page.$(".segment-stats");
+    const img = await stats.screenshot();
+    logger.debug(`img buffer for ${username} generated`);
+    browser.close();
+    return img;
+}
 
 const genImg = async (user) => {
     const browser = await puppeteer.launch({
@@ -11,6 +48,7 @@ const genImg = async (user) => {
             '--disable-setuid-sandbox',
         ]
     });
+
     const page = await browser.newPage();
 
     logger.silly('browser up');
@@ -44,5 +82,6 @@ const setDetails = (html, user) => {
 };
 
 module.exports.genImg = genImg;
+module.exports.getTrackerGGProfile = getTrackerGGProfile;
 
 

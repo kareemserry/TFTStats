@@ -30,7 +30,21 @@ const profile = async (args, msg, user) => {
     }
 };
 
-const profileHelper = async (msg, username, region) => {
+const profileHelper = async (msg, username, region)=> {
+    logger.debug(`profileHelper ${username} ${region}`);
+    msg.react(consts.emoji.eye);
+    let image;
+    try {
+        image = await puppeteer.getTrackerGGProfile(username, region);
+    } catch (err) {
+        logger.warn(`${err.name} ${err.message}`);
+        await msg.channel.send(`Couldnt find user \'${username}\' in region \'${region}\'`);
+        return;
+    }
+    await msg.channel.send({files:[image]})
+}
+
+const profileHelperDep = async (msg, username, region) => {
     logger.debug(`profileHelper ${username} ${region}`);
     msg.react(consts.emoji.eye);
     let res;
@@ -41,7 +55,7 @@ const profileHelper = async (msg, username, region) => {
         await msg.channel.send(`Couldnt find user \'${username}\' in region \'${region}\'`);
         return;
     }
-
+ 
     const user = reqToObj(res.data.segments[0].stats, ['wins', 'losses', 'rank', 'tier']);
     await sendImage(username, user, msg.channel);
 };
