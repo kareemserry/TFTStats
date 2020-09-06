@@ -1,10 +1,13 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+const util = require('util')
 
 const logger = require('./logger')(module.filename);
 const consts = require('./consts');
 const { stat } = require('fs');
 const { getHeapCodeStatistics } = require('v8');
+const { SSL_OP_EPHEMERAL_RSA } = require('constants');
+const { send } = require('process');
 
 const launchPuppeteer = async () => {
     return await puppeteer.launch({
@@ -39,6 +42,37 @@ const getTrackerGGProfile = async (username, region) => {
     logger.debug(`img buffer for ${username} generated`);
     browser.close();
     return img;
+}
+
+const getBlitzGGComps = async (channel) => {
+    const browser = await launchPuppeteer();
+    const page = await browser.newPage();
+    const link = `https://blitz.gg/tft/comps/stats`;
+
+    //huge view port to load entire page
+    await page.setViewport({ width: 3000, height: 20000 });
+    await page.goto(link);
+
+    for (var index = 1; index <= 10; index++) {
+        const selector = `li.notExpanded:nth-child(${index})`;
+        //wait for selector to load, screenshot refreshes page
+        await page.waitForSelector(selector)
+        await channel.send({
+            files: [await (await page.$(selector)).screenshot()]
+        });
+    }
+
+    browser.close();
+}
+
+const extractTier = async (element) => {
+    return (
+        await (
+            await (
+                await element.$("header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > svg:nth-child(1) > title:nth-child(1)")
+            ).getProperty("innerHTML"))
+            .jsonValue())
+        .toString().split("-")[1]
 }
 
 const genImg = async (user) => {
@@ -81,7 +115,11 @@ const setDetails = (html, user) => {
     return html;
 };
 
-module.exports.genImg = genImg;
-module.exports.getTrackerGGProfile = getTrackerGGProfile;
+//source https://advancedweb.hu/how-to-use-async-functions-with-array-filter-in-javascript/
+const asyncFilter = async (arr, predicate) => Promise.all(arr.map(predicate))
+    .then((results) => arr.filter((_v, index) => results[index]));
+
+module.exports = { genImg, getTrackerGGProfile, getBlitzGGComps }
+
 
 
