@@ -9,9 +9,9 @@ const helpMessage = !consts.envs.helpMessage ? '>>>' +
     ' `~TFTStats profile <region> <uesrname>`\n\tReturn stats for specific user' + '\n\n' +
     ' `~TFTStats link <region> <username>`\n\tLinks this account to your discord profile' + '\n\n' +
     ' `~TFTStats comps`\n\tReturns best 10 TFT comps' + '\n\n' +
-    ' `~TFTStats comps <n>`\n\tReturns nth best TFT comp in detail' + '\n\n' +
+    //' `~TFTStats comps <n>`\n\tReturns nth best TFT comp in detail' + '\n\n' +
     ' `~TFTStats comps pro`\n\tReturns best TFT recent pro played comps' + '\n\n' +
-    ' `~TFTStats comps pro <n>`\n\tReturns nth best TFT recent pro played comp in detail'
+    //' `~TFTStats comps pro <n>`\n\tReturns nth best TFT recent pro played comp in detail'
     : consts.envs.helpMessage;
 
 
@@ -35,8 +35,8 @@ const helpMap = !consts.envs.helpMap ?
         link: '>>> `~TFTStats link <region> <username>`\n\tLinks your TFT account to your discord profile,\n\tallowing you to use `~TFTStats profile`\n' +
             `\t\tRegions: ${consts.regions.toString()}\n` +
             '\t\tExample: *~TFTStats link NA scarra*',
-        comps: '>>> `~TFTStats comps`\n\tThe top TFT team compositions as per reddit\'s u\\Wrainbash analysis\n\n' +
-            '`~TFTStats comps blitz`\n\tThe top TFT team compositions as per Blitz.gg.\n'
+        comps: '>>> `~TFTStats comps`\n\tThe top 10 TFT team compositions as per Blitz.gg\n\n' +
+            '`~TFTStats comps pro`\n\tThe top 10 TFT team compositions played by pro players recently.\n'
     }
     : JSON.parse(consts.envs.helpMap);
 
