@@ -10,7 +10,7 @@ const helpMessage = !consts.envs.helpMessage ? '>>>' +
     ' `~TFTStats link <region> <username>`\n\tLinks this account to your discord profile' + '\n\n' +
     ' `~TFTStats comps`\n\tReturns best 10 TFT comps' + '\n\n' +
     //' `~TFTStats comps <n>`\n\tReturns nth best TFT comp in detail' + '\n\n' +
-    ' `~TFTStats comps pro`\n\tReturns best TFT recent pro played comps' + '\n\n' +
+    ' `~TFTStats comps pro`\n\tReturns best TFT recent pro played comps' + '\n\n' // +
     //' `~TFTStats comps pro <n>`\n\tReturns nth best TFT recent pro played comp in detail'
     : consts.envs.helpMessage;
 

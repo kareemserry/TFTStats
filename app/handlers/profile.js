@@ -1,4 +1,3 @@
-
 const logger = require('../utils/logger')(module.filename);
 const consts = require('../utils/consts');
 const puppeteer = require('../utils/puppeteer');

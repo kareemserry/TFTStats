@@ -21,6 +21,13 @@ const handle = async (msg) => {
     if (args2[0]) { args3.push(args2[0]); }
     if (args2.length > 1) { args3.push(args2.slice(1, args.length).join(' ')); }
 
+    //update notification
+    await channel.send(```TFTStats just went through a major upgrade to prepare for set 4.
+    Our update is live right now however. Checkout ~ts help for to see whats new.
+    A couples improvements didn't make it through yet, we'll have those by set 4!```)
+    //
+
+
     switch (args[1]) {
         case consts.prefixes.help:
             await handlers.help(args2, msg.channel); break;
@@ -32,10 +39,6 @@ const handle = async (msg) => {
             await handlers.stats(msg); break;
         case consts.prefixes.comps:
             await handlers.comps(args2, msg); break;
-        case consts.prefixes.compsAdd:
-            await handlers.compsManager.add([args2.join(' ')], msg); break;
-        case consts.prefixes.compsReset:
-            await handlers.compsManager.reset(args2, msg); break;
         default: await handlers.lost(msg.channel); break;
     }
 
