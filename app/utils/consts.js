@@ -12,8 +12,6 @@ const prefixes = {
     link: 'link',
     stats: 'stats',
     comps: 'comps',
-    compsAdd: 'comps-add',
-    compsReset: 'comps-reset'
 };
 
 const regions = ['euw', 'na', 'eune', 'oce', 'tr', 'br', 'lan', 'las', 'ru', 'jp'];
@@ -30,7 +28,6 @@ var envs = {
     helpMap: env.TFT_STATS_HELP_MAP,
     logLevel: env.TFT_STATS_LOG_LEVEL,
     dbString: env.TFT_STATS_DB_CON,
-    compsPatch: env.TFT_STATS_COMPS_PATCH
 };
 
 const isDev = () => {

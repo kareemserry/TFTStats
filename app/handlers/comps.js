@@ -1,52 +1,61 @@
-const api = require('../api');
-
 const logger = require('../utils/logger')(module.filename);
 const consts = require('../utils/consts');
 const puppeteer = require('../utils/puppeteer');
-const Comps = require('../models/Comps');
-
-const drawer = require('../drawers/comps-custom');
-const drawerBlitz = require('../drawers/comps-blitz');
 
 const help = require('./help');
+const { send } = require('process');
 
-// ~ts comps || ~ts comps <number>
+// ~ts comps || ~ts comps <number> || ~ts comps pro || ~ts comps pro <number>
 const comps = async (args, msg) => {
-    if (true /* wip */) {
-        await msg.channel.send("comps command is down until we get it updated for set 2, thank you for your patience");
-        return;
-    }
     switch (args.length) {
         case 0:
-            await sendAllComps(msg);
+            await sendAllComps(msg)
             break;
         case 1:
-            if (args[0] === 'blitz')
-                await sendAllCompsBlitz(msg);
-            else
-                await msg.channel.send('Do you mean `~ts comps blitz`?');
+            if (args[0] === 'pro')
+                await sendAllComps(msg, true);
+            else {
+                //detail
+                if (false && parseInt(args[0])) /*wip*/
+                    await sendComp(msg, parseInt(args[0]))
+                else
+                    await msg.channel.send('Do you mean `~ts comps pro`?'/* Or maybe `~ts comps 1`?'*/);
+            }
             break;
+        case 2:
+            if (false && args[0] === 'pro' /*wip*/) {
+                if (parseInt(args[1]) > 0)
+                    await sendComp(msg, parseInt(args[1]), true)
+                else
+                    await msg.channel.send(`${args[1]} ... thats not a positive integer`)
+                break;
+            }
         default: await msg.channel.send(help.getHelpMessage(consts.prefixes.comps)); break;
     }
 };
 
-const sendAllComps = async (msg) => {
+const sendComp = async (msg, num, isPro) => {
     msg.react(consts.emoji.eye);
-    const image = await drawer.drawComps(await Comps.find({}));
+    const img = await puppeteer.getBlitzGGComp(num, isPro);
     await msg.channel.send({
-        files: [image]
-    });
-};
+        files: [{
+            attachment: img,
+            name: "comp.png"
+        }]
+    })
+}
 
-const sendAllCompsBlitz = async (msg) => {
+
+const sendAllComps = async (msg, isPro) => {
     msg.react(consts.emoji.eye);
-    const image = await drawerBlitz.drawComps(
-        (await api.getComps()).comps.filter((comp) => {
-            return comp.tier == 1;
-        }));
-    await msg.channel.send({
-        files: [image]
-    });
+    const imgs = await puppeteer.getBlitzGGComps(isPro);
+    const files = imgs.map((img, index) => {
+        return {
+            attachment: img,
+            name: `comp${index}.png`
+        }
+    })
+    await msg.channel.send({ files })
 };
 
 module.exports = comps;

@@ -21,6 +21,30 @@ const handle = async (msg) => {
     if (args2[0]) { args3.push(args2[0]); }
     if (args2.length > 1) { args3.push(args2.slice(1, args.length).join(' ')); }
 
+    ////////////////////////////////
+    //update notification
+    const text = `\`\`\`
+    TFTStats just went through a major upgrade to prepare for set 4.
+    Our update is live right now however. Checkout ~ts help to see whats new.
+    A couples improvements didn't make it through yet, we'll have those ready by set 4!\`\`\``
+    if (msg.channel.type !== "dm") {
+        if (new Date().valueOf() - (msg.channel.guild.last_notif ? msg.channel.guild.last_notif : 0) > 21600000) {
+            await msg.channel.send(text)
+            msg.channel.guild.last_notif = new Date().valueOf()
+        }
+    } else {
+        logger.debug(new Date().valueOf() - (msg.author.last_notif ? msg.author.last_notif : 0))
+        logger.debug(new Date().valueOf())
+
+        if (new Date().valueOf() - (msg.author.last_notif ? msg.author.last_notif : 0) > 21600000) {
+            await msg.channel.send(text)
+            msg.author.last_notif = new Date().valueOf()
+        }
+    }
+    //will be removed later
+    ////////////////////////////////
+
+
     switch (args[1]) {
         case consts.prefixes.help:
             await handlers.help(args2, msg.channel); break;
@@ -32,10 +56,6 @@ const handle = async (msg) => {
             await handlers.stats(msg); break;
         case consts.prefixes.comps:
             await handlers.comps(args2, msg); break;
-        case consts.prefixes.compsAdd:
-            await handlers.compsManager.add([args2.join(' ')], msg); break;
-        case consts.prefixes.compsReset:
-            await handlers.compsManager.reset(args2, msg); break;
         default: await handlers.lost(msg.channel); break;
     }
 

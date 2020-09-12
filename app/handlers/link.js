@@ -21,7 +21,7 @@ const setUser = async (username, region, msg) => {
     const user = await Users.findOne({ discordID: msg.author.id });
 
     if (user) {
-        await user.update({
+        await user.updateOne({
             username,
             region
         });

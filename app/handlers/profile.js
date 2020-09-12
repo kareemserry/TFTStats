@@ -1,5 +1,3 @@
-const api = require('../api');
-
 const logger = require('../utils/logger')(module.filename);
 const consts = require('../utils/consts');
 const puppeteer = require('../utils/puppeteer');
@@ -33,40 +31,21 @@ const profile = async (args, msg, user) => {
 const profileHelper = async (msg, username, region) => {
     logger.debug(`profileHelper ${username} ${region}`);
     msg.react(consts.emoji.eye);
-    let res;
+    let image;
     try {
-        res = await api.getProfile(username, region);
+        image = await puppeteer.getTrackerGGProfile(username, region);
     } catch (err) {
         logger.warn(`${err.name} ${err.message}`);
         await msg.channel.send(`Couldnt find user \'${username}\' in region \'${region}\'`);
         return;
     }
-
-    const user = reqToObj(res.data.segments[0].stats, ['wins', 'losses', 'rank', 'tier']);
-    await sendImage(username, user, msg.channel);
-};
-
-const sendImage = async (username, user, channel) => {
-    await channel.send({
-        files: [
-            await puppeteer.genImg({
-                username,
-                rankImg: user.tier.metadata.imageUrl,
-                rank: user.tier.displayValue,
-                win: user.wins.displayValue,
-                loss: user.losses.displayValue,
-                ratio: (user.wins.value / (user.losses.value + user.wins.value) * 100).toFixed(1)
-            })]
-    });
-};
-
-const reqToObj = (req, args) => {
-    let obj = {};
-    args.forEach((arg) => {
-        obj[arg] = req[arg];
-    });
-    return obj;
-};
+    await msg.channel.send({
+        files: [{
+            attachment: image,
+            name: `${username}.png`
+        }]
+    })
+}
 
 module.exports = profile;
 
