@@ -11,7 +11,7 @@ const { send } = require('process');
 
 const launchPuppeteer = async () => {
     return await puppeteer.launch({
-        headless: false,
+        //headless: false,
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
