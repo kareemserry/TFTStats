@@ -91,41 +91,11 @@ const getBlitzGGComp = async (num, isPro) => {
     await page.waitForSelector(expandedSelector)
     const img = await (await page.$(expandedSelector)).screenshot()
 
-    // browser.close();
+    browser.close();
     return img;
 }
 
-const genImg = async (user) => {
-    const browser = await puppeteer.launch({
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-        ]
-    });
-
-    const page = await browser.newPage();
-
-    logger.silly('browser up');
-
-    const filePath = consts.utils.isDev() ?
-        path.join(__dirname, '..', '..', 'res', 'profile.html') :
-        path.join('file:///' + process.cwd(), 'res', 'profile.html');
-    await page.goto(filePath);
-    await page.setViewport({
-        width: 300,
-        height: 470,
-        deviceScaleFactor: 1,
-    });
-    await page.setContent(setDetails(await page.content(), user));
-
-    const img = await page.screenshot();
-
-    logger.debug(`img buffer for ${user.username} generated`);
-    browser.close();
-    return img;
-};
-
-module.exports = { genImg, getTrackerGGProfile, getBlitzGGComps, getBlitzGGComp }
+module.exports = { getTrackerGGProfile, getBlitzGGComps, getBlitzGGComp }
 
 
 
