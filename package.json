@@ -4,8 +4,8 @@
   "description": "Discord bot for TFT ",
   "main": "index.js",
   "engines": {
-    "node": "v8.12.0",
-    "npm": "6.4.1"
+    "node": "v12.17.0",
+    "npm": "6.14.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
