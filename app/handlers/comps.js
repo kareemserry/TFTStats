@@ -36,26 +36,38 @@ const comps = async (args, msg) => {
 
 const sendComp = async (msg, num, isPro) => {
     msg.react(consts.emoji.eye);
-    const img = await puppeteer.getBlitzGGComp(num, isPro);
-    await msg.channel.send({
-        files: [{
-            attachment: img,
-            name: "comp.png"
-        }]
-    })
+    try {
+        const img = await puppeteer.getBlitzGGComp(num, isPro);
+        await msg.channel.send({
+            files: [{
+                attachment: img,
+                name: "comp.png"
+            }]
+        })
+    } catch (err) {
+        logger.warn(`${err.name} ${err.message}`);
+        await msg.channel.send(`Something went wrong, we're not quite sure what. Try again later.`);
+        return;
+    }
 }
 
 
 const sendAllComps = async (msg, isPro) => {
     msg.react(consts.emoji.eye);
-    const imgs = await puppeteer.getBlitzGGComps(isPro);
-    const files = imgs.map((img, index) => {
-        return {
-            attachment: img,
-            name: `comp${index}.png`
-        }
-    })
-    await msg.channel.send({ files })
+    try {
+        const imgs = await puppeteer.getBlitzGGComps(isPro);
+        const files = imgs.map((img, index) => {
+            return {
+                attachment: img,
+                name: `comp${index}.png`
+            }
+        })
+        await msg.channel.send({ files })
+    } catch (err) {
+        logger.warn(`${err.name} ${err.message}`);
+        await msg.channel.send(`Something went wrong, we're not quite sure what. Try again later.`);
+        return;
+    }
 };
 
 module.exports = comps;
