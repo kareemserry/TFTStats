@@ -24,18 +24,15 @@ const handle = async (msg) => {
     ////////////////////////////////
     //update notification
     const text = `\`\`\`
-    TFTStats just went through a major upgrade to prepare for set 4.
-    Our update is live right now however. Checkout ~ts help to see whats new.
-    A couples improvements didn't make it through yet, we'll have those ready by set 4!\`\`\``
+    TFTStats just went through a major upgrade  for set 4.
+    Checkout our updated comps and profile commands!
+    \`\`\``
     if (msg.channel.type !== "dm") {
         if (new Date().valueOf() - (msg.channel.guild.last_notif ? msg.channel.guild.last_notif : 0) > 21600000) {
             await msg.channel.send(text)
             msg.channel.guild.last_notif = new Date().valueOf()
         }
     } else {
-        logger.debug(new Date().valueOf() - (msg.author.last_notif ? msg.author.last_notif : 0))
-        logger.debug(new Date().valueOf())
-
         if (new Date().valueOf() - (msg.author.last_notif ? msg.author.last_notif : 0) > 21600000) {
             await msg.channel.send(text)
             msg.author.last_notif = new Date().valueOf()
