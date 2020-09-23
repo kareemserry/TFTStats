@@ -1,6 +1,6 @@
 {
   "name": "tftstats",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Discord bot for TFT ",
   "main": "index.js",
   "engines": {
