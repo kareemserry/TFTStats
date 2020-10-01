@@ -31,11 +31,11 @@ const getTrackerGGProfile = async (username, region) => {
 
         await page.goto(link);
         //wait for page to load
-        await page.waitForSelector(".details", { timeout: 3000 });
-        await page.waitForSelector(".ph-details__identifier", { timeout: 3000 });
-        await page.waitForSelector(".ph-avatar", { timeout: 3000 });
-        await page.waitForSelector(".segment-stats", { timeout: 3000 });
-        await page.waitForSelector(".graph", { timeout: 3000 });
+        await page.waitForSelector(".details", { timeout: 4500 });
+        await page.waitForSelector(".ph-details__identifier", { timeout: 4500 });
+        await page.waitForSelector(".ph-avatar", { timeout: 4500 });
+        await page.waitForSelector(".segment-stats", { timeout: 4500 });
+        await page.waitForSelector(".graph", { timeout: 4500 });
 
 
         //reorder page
@@ -68,7 +68,7 @@ const getBlitzGGComps = async (isPro) => {
         for (var index = 1; index <= 10; index++) {
             const selector = `li.notExpanded:nth-child(${index})`;
             //wait for selector to load, screenshot refreshes page
-            await page.waitForSelector(selector, { timeout: 3000 })
+            await page.waitForSelector(selector, { timeout: 4500 })
             imgs.push(await (await page.$(selector)).screenshot())
         }
     } finally {
@@ -91,13 +91,13 @@ const getBlitzGGComp = async (num, isPro) => {
         const clickableSel = `li.notExpanded:nth-child(${num}) > header:nth-child(1)`
         const expandedSelector = `li.expanded:nth-child(${num})`
         //wait for selector to load, screenshot refreshes page
-        await page.waitForSelector(clickableSel, { timeout: 3000 })
+        await page.waitForSelector(clickableSel, { timeout: 4500 })
 
         await (await page.$(clickableSel)).click()
         await (await page.$(clickableSel)).click()
         await (await page.$(clickableSel)).click()
 
-        await page.waitForSelector(expandedSelector, { timeout: 3000 })
+        await page.waitForSelector(expandedSelector, { timeout: 4500 })
         img = await (await page.$(expandedSelector)).screenshot()
     } finally {
         browser.close();
