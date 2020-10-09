@@ -62,7 +62,7 @@ const sendAllComps = async (msg, isPro) => {
                 name: `comp${index}.png`
             }
         })
-        await msg.channel.send({ files })
+        await msg.channel.send({files})
     } catch (err) {
         logger.warn(`${err.name} ${err.message}`);
         await msg.channel.send(`Something went wrong, we're not quite sure what. Try again later.`);

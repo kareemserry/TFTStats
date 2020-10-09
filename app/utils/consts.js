@@ -28,6 +28,7 @@ var envs = {
     helpMap: env.TFT_STATS_HELP_MAP,
     logLevel: env.TFT_STATS_LOG_LEVEL,
     dbString: env.TFT_STATS_DB_CON,
+    puppetTimeout: env.TFT_STATS_PUP_TIMEOUT
 };
 
 const isDev = () => {

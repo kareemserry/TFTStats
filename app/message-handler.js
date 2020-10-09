@@ -23,9 +23,7 @@ const handle = async (msg) => {
 
     ////////////////////////////////
     //update notification
-    const text = `\`\`\`
-    TFTStats just went through a major upgrade for set 4.
-    Checkout our updated comps and profile commands! \`~ts help comps\` \`\`\``
+    const text = `\`We are aware some users are facing issues with the new comps commands and are working on a fix. Thank you for your patience.\``
     if (msg.channel.type !== "dm") {
         if (new Date().valueOf() - (msg.channel.guild.last_notif ? msg.channel.guild.last_notif : 0) > 21600000) {
             await msg.channel.send(text)
