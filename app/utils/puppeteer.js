@@ -65,7 +65,7 @@ const getBlitzGGComps = async (isPro) => {
         //set view port to load entire page
         await page.setViewport({ height: 1080, width: 1920 });
         await page.goto(link);
-        await page.screenshot();
+        await page.reload();
 
         for (var index = 1; index <= 10; index++) {
             const cookieAgreeSelector = "button.sc-bwzfXH:nth-child(2)";
