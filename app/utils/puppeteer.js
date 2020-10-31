@@ -67,15 +67,16 @@ const getBlitzGGComps = async (isPro) => {
         await page.goto(link);
         await page.reload();
 
-        for (var index = 1; index <= 10; index++) {
+        for (var index = 1; index <= 3; index++) {
             const cookieAgreeSelector = "button.sc-bwzfXH:nth-child(2)";
             const selector = `li.notExpanded:nth-child(${index})`;
             //wait for selector to load, screenshot refreshes page
             await acceptCookies(page, cookieAgreeSelector, index + "pre");
             await page.waitForSelector(selector, { timeout: consts.envs.puppetTimeout });
-            await acceptCookies(page, cookieAgreeSelector, index + "post");
+            //await acceptCookies(page, cookieAgreeSelector, index + "post");
 
-            imgs.push(await (await page.$(selector)).screenshot());
+            //imgs.push(await (await page.$(selector)).screenshot());
+            imgs.push(await page.screenshot())
         }
     } finally {
         await browser.close();
@@ -115,6 +116,7 @@ const acceptCookies = async (page, cookieAgreeSelector, index) => {
         logger.debug(`Cookie popup on ${index} clicked`);
     } catch (ignored) {
         logger.debug(`Couldn't click cookie popup on ${index}`);
+        logger.silly(ignored)
     }
 }
 
